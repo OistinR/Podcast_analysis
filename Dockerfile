@@ -22,5 +22,5 @@ RUN pip install --no-cache-dir -r requirements.txt
 WORKDIR /app
 COPY . .
 
-# Run main script
+# Run main script	docker run --gpus all nvidia/cuda:12.2.0-base-ubuntu22.04 nvidia-smi
 CMD ["python", "main.py"]

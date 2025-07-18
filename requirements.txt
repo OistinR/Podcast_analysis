@@ -1,6 +1,4 @@
 openai-whisper
-torch
-torchaudio
 transformers
 pyannote.audio
 yt_dlp

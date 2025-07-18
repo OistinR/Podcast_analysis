@@ -21,8 +21,10 @@ def download_youtube_audio(url, output_file='audio.wav'):
     os.rename('downloaded.wav', output_file)
     return output_file
 
+
 def transcribe_whisper(audio_path):
-    model = whisper.load_model("base")  # or medium/large?
+    model = whisper.load_model("base").to("cuda")   # or medium/large
+    print("Model device:", next(model.parameters()).device)  # Confirm it's on CUDA
     result = model.transcribe(audio_path)
     return result['segments']
 
@@ -61,8 +63,9 @@ if __name__ == "__main__":
     youtube_url = "https://www.youtube.com/watch?v=D_sPkkJuGMI" # TLDR news channel discussing Russia's Economy
     hf_token = HF_TOKEN
 
-    audio_path = download_youtube_audio(youtube_url)
-    print("--------Download Comnplete--------------")
+    # audio_path = download_youtube_audio(youtube_url)
+    # print("--------Download Comnplete--------------")
+    audio_path = "audio.wav"
     transcript = transcribe_whisper(audio_path)
     print("--------Transcription Comnplete--------------")
     diarization = run_diarization(audio_path, hf_token)
